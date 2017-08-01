@@ -51,7 +51,7 @@ are:
 
 #### Another example:
 `docker create`  
-We will be using docker create instead of run, but you can use either.
+We will be using *docker create* instead of run, but you can use either.
 
 `--name c_deluge`  
 The name of our container. Use something you will remember and append c_ in front,  
@@ -141,13 +141,17 @@ If you are proxying more containers on your host, try traefik? Both support lets
 If you are using dockerfile labels (docker-gen, etc), you can remove/change existing ones.  
 All of the above is ofc just an opinion and ymmv.
 
+**For a complete deluge docker image, consider using deluge images.**  
+[deluge github](https://github.com/git-sinaptika/deluge)  
+[deluge dockerhub](https://hub.docker.com/r/sinaptika/deluge/)  
+
 **For advance uses or more customization, consider using separate images for deluged and deluge-web.**  
 [deluged github](https://github.com/git-sinaptika/deluged)  
 [deluged dockerhub](https://hub.docker.com/r/sinaptika/deluged/)  
 [deluge-web github](https://github.com/git-sinaptika/deluge-web)  
 [deluge-web dockerhub](https://hub.docker.com/r/sinaptika/deluge-web/)  
 
-#### Changelog:  
+#### Changelog for deluge, deluged and deluge-web:  
 **0.1**  
 - supervisor integration  
   - umask and user done
@@ -156,5 +160,3 @@ All of the above is ofc just an opinion and ymmv.
 **0.2**  
 - fixing typos in readme, some basic editing in dockerfile
   - starting to unify structure/style in deluged, deluge-web and deluge images
-  - started on ubuntu:16.04 based image, not done yet
-  - started on a completely barebones image, not done yet

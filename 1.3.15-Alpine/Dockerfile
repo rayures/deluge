@@ -11,6 +11,9 @@ ENV \
  D_DIR="/opt/deluge" \
  D_USER="deluge" \
  D_GROUP="deluge" \
+ D_W_PORT="8112" \
+ D_D_PORT="58846" \
+ D_D_INCOMING_PORT="50100" \
 #Enviroment variables for running the container.
 #Pass at docker create or docker run (-e VARIABLE=value).
  TZ="Europe/London" \
@@ -18,10 +21,7 @@ ENV \
  D_GID="1000" \
  D_D_UMASK="022" \
  D_D_LOG_LEVEL="warn" \
- D_W_LOG_LEVEL="warn" \
- D_W_PORT="8112" \
- D_D_PORT="58846" \
- D_D_INCOMING_PORT="50100"
+ D_W_LOG_LEVEL="warn"
 
 RUN \
 #Create directory structure and add user:group.
@@ -159,9 +159,9 @@ LABEL \
  net.sinaptika.from="alpine:3.6" \
  c_software_name="Deluge" \
  c_software_url="http://deluge-torrent.org/" \
- image.version="0.1" \
- date.version="31.7.2017" \
+ image.version="0.2" \
+ date.version="1.8.2017" \
  web_interface="true" \
  web_interface_port=${D_W_PORT} \
- exposed_ports=${D_W_PORT},${D_D_PORT},${D_INCOMING_PORT} \
+ exposed_ports=${D_W_PORT},${D_D_PORT},${D_INCOMING_PORT},${D_INCOMING_PORT}/udp \
  docker_volumes=${D_DIR}

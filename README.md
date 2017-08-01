@@ -1,15 +1,12 @@
 # sinaptika/deluge
 Docker image for deluge  
 From alpine:3.6  
-Deluge: 1.3.15  
-libtorrent: 1.1.4  
+[Deluge: 1.3.15](http://deluge-torrent.org/)    
+[libtorrent: 1.1.4](http://www.libtorrent.org/)    
 This image contains Deluge Daemon and Deluge Web interface.  
 Deluge daemon port: 58846  
 Deluged incoming port tcp&udp: 50100  
 Deluge web interface port: 8112  
-[Deluge 1.3.15](http://deluge-torrent.org/)  
-[libtorrent 1.1.4](http://www.libtorrent.org/)  
-
 [Github](https://github.com/git-sinaptika/deluge)  
 
 
@@ -17,7 +14,7 @@ Deluge web interface port: 8112
 1. Pull the image from docker-hub:  
 `docker pull sinaptika/deluge`  
 
-2. Create a directory called deluge inside your home directory on the host:  
+2. Create a directory called **deluge** inside your home directory on the host:  
 `mkdir ~/deluge`
 
 3. Create or run your container:  
@@ -48,7 +45,7 @@ are:
 - `-e TZ=<timezone>` (examples: Europe/London or America/New_York)
 - `-e D_UID=<user id of user running deluge>` (default user id 1000)
 - `-e D_GID=<group id of user running deluge>` (default group id 1000)
-- `-e D_D_UMASK=<umask used deluged>` (umask used by deluge, default 022)
+- `-e D_D_UMASK=<umask used deluged>` (umask used by deluged, default 022)
 - `-e D_D_LOG_LEVEL=<log level of deluged>` (default is warn)
 - `-e D_W_LOG_LEVEL=<log level of deluge-web>` (default is warn)
 
@@ -99,7 +96,7 @@ it might be useful to have downloads and complete on separate pools and
 Set the [timezone](https://en.wikipedia.org/wiki/Tz_database).
 
 `-e D_UID:1000 -e D_GID:1000`  
-User and group id of the user running deluged. All files downloaded by deluged  
+User and group id of the user running deluged and deluge-web. All files downloaded by deluged  
 will be owned by that user. 1000 is the default id of the first "human" user   
 on debian/ubuntu/rhel7. You can see your id by typing *id* inside of a terminal.
 
@@ -111,7 +108,7 @@ Docker's restart policy. unless-stopped means that docker will always
 restart this container (e.g. after a host restart), unless you stopped it with  
 *docker stop c_deluged*.
 
-`sinaptika/deluged`  
+`sinaptika/deluge`  
 Name of the image on which we will base the whole container.
 
 The whole command:  
@@ -131,20 +128,20 @@ The whole command:
 `sinaptika/deluge`
 
 #### Notes:
-Don't use `--net host` on *docker create*, unless you know what you are doing.  
+Don't use *--net host* on *docker create*, unless you know what you are doing.  
 If you are using more than one interface with deluge, add docker network to container.  
 Macvlan works great, so does ipvlan (but ipvlan is not yet included in docker stable).  
-If you are having problems with file permission, check `-e D_UID=` and `-e D_D_UMASK=`  
+If you are having problems with file permission, check *-e D_UID=* and *-e D_D_UMASK=*  
 If you are using only the web interface for accessing deluged, you don't need to  
 expose port 58846 on the host.  
 If building this image locally, don't forget that compiling latest libtorrent  
 will take some time even on modern hw.  
 For proxying just deluge-web don't use Apache or Nginx, it's overkill. Try caddy?  
 If you are proxying more containers on your host, try traefik? Both support letsencrypt.  
-If you are using dockerfile labels (docker-gen, etc), you can remove existing ones without worry.
+If you are using dockerfile labels (docker-gen, etc), you can remove/change existing ones.  
 All of the above is ofc just an opinion and ymmv.
 
-**For advance uses or more customization consider using separate images for deluged and deluge-web.**  
+**For advance uses or more customization, consider using separate images for deluged and deluge-web.**  
 [deluged github](https://github.com/git-sinaptika/deluged)  
 [deluged dockerhub](https://hub.docker.com/r/sinaptika/deluged/)  
 [deluge-web github](https://github.com/git-sinaptika/deluge-web)  
@@ -154,4 +151,10 @@ All of the above is ofc just an opinion and ymmv.
 **0.1**  
 - supervisor integration  
   - umask and user done
-  - passing variables to entrypoint and supervisor done
+  - passing variables to entrypoint and supervisor done  
+
+**0.2**  
+- fixing typos in readme, some basic editing in dockerfile
+  - starting to unify structure/style in deluged, deluge-web and deluge images
+  - started on ubuntu:16.04 based image, not done yet
+  - started on a completely barebones image, not done yet

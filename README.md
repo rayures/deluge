@@ -159,4 +159,8 @@ All of the above is ofc just an opinion and ymmv.
 
 **0.2**  
 - fixing typos in readme, some basic editing in dockerfile
-  - starting to unify structure/style in deluged, deluge-web and deluge images
+  - starting to unify structure/style in deluged, deluge-web and deluge images  
+
+**0.3**
+- downgraded libtorrent to 1.0.11 for stable, latest, and 1.3.15 tags
+- added dev and stable

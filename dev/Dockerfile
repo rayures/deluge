@@ -126,7 +126,7 @@ WORKDIR \
 #Using status instead of config to print defaults in 2.0
 RUN \
     /usr/bin/deluge-web \
-        -f --ssl -c ${D_DIR}/config -l ${D_DIR}/config/deluge-web-init.log -L debug && \
+        -f -c ${D_DIR}/config -l ${D_DIR}/config/deluge-web-init.log -L debug && \
     sleep 10 && \
     pkill -15 python && \
     /usr/bin/deluged \
@@ -170,7 +170,7 @@ LABEL \
     net.sinaptika.from="alpine:3.6" \
     c_software_name="Deluge" \
     c_software_url="http://deluge-torrent.org/" \
-    image.version="0.5" \
+    image.version="dev" \
     date.version="12.10.2017" \
     web_interface="true" \
     web_interface_port=${D_W_PORT} \

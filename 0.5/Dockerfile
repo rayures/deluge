@@ -126,7 +126,7 @@ WORKDIR \
 #Using status instead of config to print defaults in 2.0
 RUN \
     /usr/bin/deluge-web \
-        -f --ssl -c ${D_DIR}/config -l ${D_DIR}/config/deluge-web-init.log -L debug && \
+        -f -c ${D_DIR}/config -l ${D_DIR}/config/deluge-web-init.log -L debug && \
     sleep 10 && \
     pkill -15 python && \
     /usr/bin/deluged \

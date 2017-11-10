@@ -93,7 +93,7 @@ RUN \
     apk add --no-cache --virtual .runtime_deluge \
         py-setuptools py-mako py2-openssl py-twisted py2-geoip && \
     pip install --no-cache-dir \
-        chardet pyxdg service_identity incremental constantly packaging automat slimit && \
+        pyxdg service_identity incremental constantly packaging automat slimit chardet && \
     wget \
         https://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz -O \
         /tmp/GeoIP.dat.gz && gunzip /tmp/GeoIP.dat.gz && \

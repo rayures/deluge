@@ -1,7 +1,7 @@
 #Maintainer info@sinaptika.net
 #deluge http://deluge-torrent.org/
 #deluge image
-FROM sinaptika/libtorrent:1.1.3 as builder_libtorrent
+FROM sinaptika/libtorrent:1.0.11 as builder_libtorrent
 
 FROM alpine:3.6
 
@@ -9,9 +9,9 @@ FROM alpine:3.6
 #Enviroment variables for running the container.
 #Pass at docker create or docker run (-e VARIABLE=value).
 ENV \
-    DELUGE_VERSION="2.0b1" \
-    LIBTORRENT_VERSION="1.1.3" \
-    LIBTORRENT_SO="9" \
+    DELUGE_VERSION="1.3.15" \
+    LIBTORRENT_VERSION="1.0.11" \
+    LIBTORRENT_SO="8" \
     D_DIR="/opt/deluge" \
     D_USER="deluge" \
     D_GROUP="deluge" \
@@ -121,7 +121,7 @@ RUN \
 WORKDIR \
     ${D_DIR}/config
 
-#Deluged first run
+#Deluged and deluge-web first run
 #Deluged configuration
 #Using status instead of config to print defaults in 2.0
 RUN \
@@ -135,7 +135,7 @@ RUN \
         -L debug && \
     sleep 10 && \
     deluge-console \
-        -c ${D_DIR}/config "status" && \
+        -c ${D_DIR}/config "config" && \
     deluge-console \
         -c ${D_DIR}/config "config -s allow_remote true" && \
     deluge-console \
@@ -172,8 +172,8 @@ LABEL \
     net.sinaptika.from="alpine:3.6" \
     c_software_name="Deluge" \
     c_software_url="http://deluge-torrent.org/" \
-    image.version="dev" \
-    date.version="12.10.2017" \
+    image.version="0.6" \
+    date.version="10.11.2017" \
     web_interface="true" \
     web_interface_port=${D_W_PORT} \
     exposed_ports=${D_W_PORT},${D_D_PORT},${D_D_INCOMING_PORT},${D_D_INCOMING_PORT}/udp \

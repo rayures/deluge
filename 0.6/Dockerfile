@@ -51,7 +51,7 @@ COPY \
 #Copy supervisor configuration file.
 COPY \
     scripts/supervisord.conf \
-    ${D_DIR}/config
+    ${D_DIR}/config/
 
 #Copy libtorrent-rasterbar from sinaptika/libtorrent
 COPY \
@@ -118,9 +118,6 @@ RUN \
         /usr/bin/deluged-pass.sh \
         /usr/bin/docker-entrypoint.sh
 
-WORKDIR \
-    ${D_DIR}/config
-
 #Deluged and deluge-web first run
 #Deluged configuration
 #Using status instead of config to print defaults in 2.0
@@ -173,7 +170,7 @@ LABEL \
     c_software_name="Deluge" \
     c_software_url="http://deluge-torrent.org/" \
     image.version="0.6" \
-    date.version="10.11.2017" \
+    date.version="8.12.2017" \
     web_interface="true" \
     web_interface_port=${D_W_PORT} \
     exposed_ports=${D_W_PORT},${D_D_PORT},${D_D_INCOMING_PORT},${D_D_INCOMING_PORT}/udp \

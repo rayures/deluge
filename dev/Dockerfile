@@ -1,9 +1,9 @@
 #Maintainer info@sinaptika.net
 #deluge http://deluge-torrent.org/
 #deluge image
-FROM sinaptika/libtorrent:1.1.3 as builder_libtorrent
+FROM sinaptika/libtorrent:1.1.3_alp_3.7 as builder_libtorrent
 
-FROM alpine:3.6
+FROM alpine:3.7
 
 #Enviroment variables for building the image.
 #Enviroment variables for running the container.
@@ -51,7 +51,7 @@ COPY \
 #Copy supervisor configuration file.
 COPY \
     scripts/supervisord.conf \
-    ${D_DIR}/config
+    ${D_DIR}/config/
 
 #Copy libtorrent-rasterbar from sinaptika/libtorrent
 COPY \
@@ -81,19 +81,19 @@ COPY \
 RUN \
     cd && \
     apk add --no-cache --virtual .runtime_libtorrent \
-        boost-python boost-system libgcc libstdc++ python2 && \
+        boost-python boost-system libstdc++ python2 && \
     ln -s /usr/lib/libtorrent-rasterbar.so.${LIBTORRENT_SO}.0.0 /usr/lib/libtorrent-rasterbar.so && \
     ln -s /usr/lib/libtorrent-rasterbar.so.${LIBTORRENT_SO}.0.0 /usr/lib/libtorrent-rasterbar.so.${LIBTORRENT_SO} && \
     ldconfig -n -v /usr/lib && \
     cd && \
     apk add --no-cache --virtual .system \
-        tzdata supervisor pwgen unrar && \
+        tzdata supervisor pwgen p7zip && \
     apk add --no-cache --virtual .build_deluge \
-        gettext git geoip openssl py2-pip intltool && \
+        git gettext geoip openssl py2-pip intltool && \
     apk add --no-cache --virtual .runtime_deluge \
-        py-setuptools py-mako py2-openssl py-twisted py2-geoip && \
+        py-setuptools py2-mako py2-openssl py-twisted py2-geoip && \
     pip install --no-cache-dir \
-        chardet pyxdg service_identity automat incremental constantly packaging slimit && \
+        pyxdg service_identity incremental constantly packaging automat slimit chardet && \
     wget \
         https://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz -O \
         /tmp/GeoIP.dat.gz && gunzip /tmp/GeoIP.dat.gz && \
@@ -117,10 +117,6 @@ RUN \
     chmod +x \
         /usr/bin/deluged-pass.sh \
         /usr/bin/docker-entrypoint.sh
-
-WORKDIR \
-    ${D_DIR}/config
-
 #Deluged first run
 #Deluged configuration
 #Using status instead of config to print defaults in 2.0
@@ -162,6 +158,9 @@ EXPOSE \
     ${D_D_INCOMING_PORT} \
     ${D_D_INCOMING_PORT}/udp
 
+VOLUME \
+    ${D_DIR}/config
+
 ENTRYPOINT \
     ["/usr/bin/docker-entrypoint.sh"]
 
@@ -173,7 +172,7 @@ LABEL \
     c_software_name="Deluge" \
     c_software_url="http://deluge-torrent.org/" \
     image.version="dev" \
-    date.version="12.10.2017" \
+    date.version="14.12.2017" \
     web_interface="true" \
     web_interface_port=${D_W_PORT} \
     exposed_ports=${D_W_PORT},${D_D_PORT},${D_D_INCOMING_PORT},${D_D_INCOMING_PORT}/udp \

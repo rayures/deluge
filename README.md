@@ -1,43 +1,42 @@
 # sinaptika/deluge
 [Github](https://github.com/git-sinaptika/deluged)  
-Docker image for deluged  
-From alpine:3.6  
+Docker image for deluge  
+From alpine:3.7  
 From [sinaptika/libtorrent](https://hub.docker.com/r/sinaptika/libtorrent/)  
 
 [Deluge: 1.3.15](http://deluge-torrent.org/)    
-[libtorrent: 1.0.11-1.1.4](http://www.libtorrent.org/)    
-This image contains only Deluge Daemon.  
+[libtorrent: 1.0.11-1.1.5](http://www.libtorrent.org/)    
+This image contains Deluge Daemon and Deluge Web interface.  
 Deluge daemon port: 58846  
+Deluge web interface port: 8112  
 Deluged incoming port tcp&udp: 50100  
 
-Docker tags: latest(0.6), dev (2.0b1)
+Docker tags: latest(0.7, 1.3.15), dev (2.0b1)
 #### Simple instructions:  
-1. Pull the image from docker-hub:  
-`docker pull sinaptika/deluge`  
 
-2. Create a directory called **deluge** inside your home directory on the host:  
+1. Create a directory called **deluge** inside your home directory on the host:  
 `mkdir ~/deluge`
 
-3. Create or run your container:  
+2. Create or run your container:  
 `docker run -d \`  
 `--name c_deluge \`  
 `-p 50100:50100 \`  
 `-p 58846:58846 \`  
 `-p 8112:8112 \`  
-`-v ~/deluge:/opt/deluge \`  
+`-v ~/deluge:/opt/deluge/complete \`  
 `sinaptika/deluge`
 
-4. Create a username and password for logging in to deluge daemon by running:   
+3. Create a username and password for logging in to deluge daemon by running:   
 `docker exec -it c_deluge deluged-pass.sh`   
 You can also add a username and password manually.   
-Just edit the **auth** file inside your **~/deluge/config** directory.
+Just edit the **auth** file inside your **deluge volume** directory.
 
-5. Sign into the web interface at http://your.docker.host:8112 with  
+4. Sign into the web interface at http://your.docker.host:8112 with  
 the default password **deluge** and change the password as instructed.
 
 In the example above, we pulled the image from docker-hub,  
 created and started a container named c_deluge and mounted the directory  
-~/deluge from the host to /opt/deluge inside the container.  
+~/deluge from the host to /opt/deluge/complete inside the container.  
 We have also exposed three ports in the container and mapped them on the host.  
 Then we generated user and pass and appended it to deluged's **auth** file.
 
@@ -47,8 +46,8 @@ are:
 - `-e D_UID=<user id of user running deluge>` (default user id 1000)
 - `-e D_GID=<group id of user running deluge>` (default group id 1000)
 - `-e D_D_UMASK=<umask used deluged>` (umask used by deluged, default 022)
-- `-e D_D_LOG_LEVEL=<log level of deluged>` (default is warn)
-- `-e D_W_LOG_LEVEL=<log level of deluge-web>` (default is warn)
+- `-e D_D_LOG_LEVEL=<log level of deluged>` (default is info)
+- `-e D_W_LOG_LEVEL=<log level of deluge-web>` (default is info)
 
 #### Another example:
 `docker create`  
@@ -82,7 +81,7 @@ https://your.docker.host
 `-v v_deluge_config:/opt/deluge/config`  
 This mounts your containers config directory with configuration files,  
 logs and ssl certificates to a named docker volume v_deluge_config  
-(usually at /var/lib/docker/volumes).  
+(usually located at /var/lib/docker/volumes on the host).  
 
 `-v /path/to/downloads:/opt/deluge/downloads`  
 This mounts the downloads dir from your container to a custom location.  
@@ -119,7 +118,7 @@ The whole command:
 `-p 50300:50100/udp \`  
 `-p 50400:58846 \`  
 `-p 443:8112`  
-`-v v_deluged_config:/opt/deluge/config \`  
+`-v v_deluge_config:/opt/deluge/config \`  
 `-v /path/to/downloads:/opt/deluge/downloads \`  
 `-v /path/to/complete:/opt/deluge/complete \`  
 `-e TZ=America/Costa_Rica \`  
@@ -177,3 +176,11 @@ All of the above is ofc just an opinion and ymmv.
 **0.6**
 - Changed git source from git:deluge.org to github 
 - removed selfsigned certs from image
+
+**0.7**
+- Upgraded libtorrent and deluge base images to Alpine 3.7
+- Defined config as a volume in dockerfile, so it can work as stated in the readme
+- Removed some WORKDIR layers for easier readability
+  - Specified Supervisord pid location
+  - Specified Supervisord log location
+- Replaced unrar with p7zip (extractor plugin uses it)

@@ -48,7 +48,7 @@ COPY \
 COPY \
 #Copy supervisor configuration file.
 scripts/supervisord.conf \
-${D_DIR}/config
+${D_DIR}/config/
 
 RUN \
 #Libtorrent

@@ -102,6 +102,7 @@ RUN \
     wget -qO- \
         http://download.deluge-torrent.org/source/deluge-${DELUGE_VERSION}.tar.gz | tar xz && \
     cd deluge-${DELUGE_VERSION} && \
+    python setup.py -q build && \
     python setup.py -q install && \
     rm -rf \
         /usr/lib/python2.7/site-packages/deluge-${DELUGE_VERSION}-py2.7.egg/share/* \

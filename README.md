@@ -184,3 +184,6 @@ All of the above is ofc just an opinion and ymmv.
   - Specified Supervisord pid location
   - Specified Supervisord log location
 - Replaced unrar with p7zip (extractor plugin uses it)
+
+**0.8**
+- Changed builder images (libtorrent)

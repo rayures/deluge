@@ -105,7 +105,7 @@ RUN \
 
 git clone https://github.com/deluge-torrent/deluge.git && \
     cd deluge && \
-git checkout branches ${DELUGE_VERSION} && \
+git checkout ${DELUGE_VERSION} && \
 
     python setup.py -q build && \
     python setup.py -q install && \

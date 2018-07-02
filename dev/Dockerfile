@@ -9,7 +9,7 @@ FROM alpine:3.7
 #Enviroment variables for running the container.
 #Pass at docker create or docker run (-e VARIABLE=value).
 ENV \
-    DELUGE_VERSION="2.0b1" \
+    DELUGE_VERSION="develop" \
     LIBTORRENT_VERSION="1.1.3" \
     LIBTORRENT_SO="9" \
     D_DIR="/opt/deluge" \
@@ -100,7 +100,7 @@ RUN \
     mv \
         /tmp/GeoIP.dat /usr/share/GeoIP && \
     git clone https://github.com/deluge-torrent/deluge.git && \
-    cd deluge && \
+        cd deluge && \
     git checkout tags/deluge-${DELUGE_VERSION} && \
     python setup.py -q build && \
     python setup.py -q install && \

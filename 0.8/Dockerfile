@@ -99,9 +99,9 @@ RUN \
         /tmp/GeoIP.dat.gz && gunzip /tmp/GeoIP.dat.gz && \
     mv \
         /tmp/GeoIP.dat /usr/share/GeoIP && \
-    wget -qO- \
-    ## http://download.deluge-torrent.org/source/deluge-${DELUGE_VERSION}.tar.gz | tar xz && \
-        https://github.com/aberaud/deluge/archive/1.3-stable.zip | zip && \
+    wget \
+        https://github.com/aberaud/deluge/archive/${DELUGE_VERSION}.zip && \
+    unzip ${DELUGE_VERSION}.zip
     cd deluge-${DELUGE_VERSION} && \
     python setup.py -q build && \
     python setup.py -q install && \

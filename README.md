@@ -1,5 +1,6 @@
 # personal repo
--v0.8 edited to use repo: https://github.com/aberaud/deluge which has an added patch i want. 
+-v0.8 edited to use repo: https://github.com/aberaud/deluge which has an added patch i want.
+
 -dev edited to pull development branch direct from deluge repo, always latest version. bump libtorrent to 1.1.6
 
 # sinaptika/deluge

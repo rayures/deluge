@@ -101,7 +101,7 @@ RUN \
         /tmp/GeoIP.dat /usr/share/GeoIP && \
     wget \
         https://github.com/aberaud/deluge/archive/${DELUGE_VERSION}.zip && \
-    unzip ${DELUGE_VERSION}.zip
+    unzip ${DELUGE_VERSION}.zip && \
     cd deluge-${DELUGE_VERSION} && \
     python setup.py -q build && \
     python setup.py -q install && \

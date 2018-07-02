@@ -1,3 +1,6 @@
+# personal repo
+v0.8 edited to use repo: https://github.com/aberaud/deluge which has an added patch i want. 
+
 # sinaptika/deluge
 [Github](https://github.com/git-sinaptika/deluged)  
 Docker image for deluge  

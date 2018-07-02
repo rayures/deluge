@@ -1,7 +1,7 @@
 #Maintainer info@sinaptika.net
 #deluge http://deluge-torrent.org/
 #deluge image
-FROM sinaptika/libtorrent:1.1.3 as builder_libtorrent
+FROM sinaptika/libtorrent:1.1.6 as builder_libtorrent
 
 FROM alpine:3.7
 

@@ -101,7 +101,7 @@ RUN \
         /tmp/GeoIP.dat /usr/share/GeoIP && \
     git clone https://github.com/deluge-torrent/deluge.git && \
         cd deluge && \
-    git checkout tags/deluge-${DELUGE_VERSION} && \
+    git checkout branch/deluge-${DELUGE_VERSION} && \
     python setup.py -q build && \
     python setup.py -q install && \
     rm -rf \

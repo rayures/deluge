@@ -99,14 +99,9 @@ RUN \
         /tmp/GeoIP.dat.gz && gunzip /tmp/GeoIP.dat.gz && \
     mv \
         /tmp/GeoIP.dat /usr/share/GeoIP && \
-#    wget https://github.com/deluge-torrent/deluge/archive/${DELUGE_VERSION}.zip && \
-#        unzip ${DELUGE_VERSION}.zip && \
-#    cd deluge-${DELUGE_VERSION} && \   
-
-git clone https://github.com/deluge-torrent/deluge.git && \
+    git clone https://github.com/deluge-torrent/deluge.git && \
     cd deluge && \
-git checkout ${DELUGE_VERSION} && \
-# git cherry-pick e92e159b93a2a30c53b6b8ad4fd59dd3a74b8e3e && \
+    git checkout ${DELUGE_VERSION} && \
 
     python setup.py -q build && \
     python setup.py -q install && \

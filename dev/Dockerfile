@@ -106,6 +106,7 @@ RUN \
 git clone https://github.com/deluge-torrent/deluge.git && \
     cd deluge && \
 git checkout ${DELUGE_VERSION} && \
+git cherry-pick e92e159 && \
 
     python setup.py -q build && \
     python setup.py -q install && \
